@@ -19,6 +19,9 @@ public class Hour {
         this.id = id;
         this.name = name;
     }
+    public Hour(String name) {
+        this.name = name;
+    }
     // Data
 
     public Long getId() {
