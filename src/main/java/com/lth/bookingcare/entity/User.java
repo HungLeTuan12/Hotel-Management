@@ -21,6 +21,7 @@ public class User {
     private String status;
     private String description;
     private String image;
+    boolean enabled;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
@@ -41,7 +42,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String fullName, String phone, String email, String status, String description, String image, LocalDateTime createdAt, LocalDateTime updatedAt, Role role, Major major, List<ScheduleUser> scheduleUsers, List<Booking> bookings) {
+    public User(Long id, String username, String password, String fullName, String phone, String email, String status, String description, String image, LocalDateTime createdAt, LocalDateTime updatedAt, Role role, Major major, List<ScheduleUser> scheduleUsers, List<Booking> bookings, boolean enabled) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -57,6 +58,7 @@ public class User {
         this.major = major;
         this.scheduleUsers = scheduleUsers;
         this.bookings = bookings;
+        this.enabled = enabled;
     }
     // Data
 
@@ -178,5 +180,13 @@ public class User {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

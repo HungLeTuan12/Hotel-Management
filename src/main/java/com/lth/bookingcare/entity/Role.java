@@ -11,7 +11,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private RoleName roleName;
+    private RoleName name;
     private String description;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
     private List<User> users = new ArrayList<>();
@@ -22,12 +22,12 @@ public class Role {
 
     public Role(Long id, RoleName roleName, String description, List<User> users) {
         this.id = id;
-        this.roleName = roleName;
+        this.name = roleName;
         this.description = description;
         this.users = users;
     }
     public Role(RoleName roleName, String description) {
-        this.roleName = roleName;
+        this.name = roleName;
         this.description = description;
     }
     // Getter and setter
@@ -41,11 +41,11 @@ public class Role {
     }
 
     public RoleName getRoleName() {
-        return roleName;
+        return name;
     }
 
     public void setRoleName(RoleName roleName) {
-        this.roleName = roleName;
+        this.name = roleName;
     }
 
     public String getDescription() {

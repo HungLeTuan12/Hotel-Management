@@ -14,6 +14,7 @@ public class Major {
     private String description;
     @ElementCollection
     private List<String> images;
+    private String image;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "major")
     private List<User> users = new ArrayList<>();
     // Constructor
@@ -68,5 +69,13 @@ public class Major {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

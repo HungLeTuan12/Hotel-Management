@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.lang.Strings;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
@@ -14,7 +15,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Service
 public class JwtService {
     private SecretKey key = Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
     public Claims buildClaims(int userId, String email, Collection<String> c) {
@@ -28,7 +29,7 @@ public class JwtService {
     public boolean isValidToken(String token) {
         token = Strings.replace(token, "Bearer ", "");
         try {
-            Jwts.parserBuilder().setSigningKey(JWTConstant.SECRET_KEY).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         }
         catch (Exception e) {
@@ -40,7 +41,7 @@ public class JwtService {
             throw new IllegalArgumentException("Jwt is empty or null !");
         }
         token = Strings.replace(token, "Bearer ", "");
-        Claims claims = Jwts.parserBuilder().setSigningKey(JWTConstant.SECRET_KEY).build().parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
         return claims.get("userId", Integer.class);
     }
     public String generateToken(CustomUserDetail customUserDetail) {
