@@ -14,6 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    private String dob;
     private String password;
     private String fullName;
     private String phone;
@@ -188,5 +189,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }

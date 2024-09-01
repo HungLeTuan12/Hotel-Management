@@ -16,6 +16,7 @@ public class Booking {
     private Long id;
     private String fullName;
     private String phone;
+    private String dob;
     private String email;
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -54,6 +55,19 @@ public class Booking {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.user = user;
+    }
+    public Booking(String fullName, String dob, String phone, String email, Gender gender, String address, Date date, Long idHour, Status status, String note, String token) {
+        this.fullName = fullName;
+        this.dob = dob;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.address = address;
+        this.date = date;
+        this.idHour = idHour;
+        this.status = status;
+        this.note = note;
+        this.token = token;
     }
     // Data
 
@@ -167,5 +181,13 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }
