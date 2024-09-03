@@ -14,17 +14,17 @@ import com.lth.bookingcare.repository.UserRepository;
 import com.lth.bookingcare.request.LoginRequest;
 import com.lth.bookingcare.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +38,7 @@ public class UserService implements IUserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private JwtService jwtService;
     @Autowired
@@ -85,7 +86,7 @@ public class UserService implements IUserService {
     public List<User> getAllDoctors(Long majorId, String name, Pageable pageable, String status) {
         Boolean enabled = null;
         if(status != null)  enabled = status.equals("true");
-        return userRepository.getAllDoctors(majorId, name, pageable, enabled).stream().collect(Collectors.toList());
+        return userRepository.getAllDoctors(majorId, name, enabled, pageable).stream().collect(Collectors.toList());
     }
 
     @Override

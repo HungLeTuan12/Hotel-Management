@@ -14,6 +14,7 @@ public class Contact {
     private String phone;
     private String gmail;
     private String note;
+    private String dob;
     // Constructor
 
     public Contact() {
@@ -66,5 +67,13 @@ public class Contact {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }

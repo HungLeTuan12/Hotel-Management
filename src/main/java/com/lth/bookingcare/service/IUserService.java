@@ -3,8 +3,8 @@ package com.lth.bookingcare.service;
 import com.lth.bookingcare.dto.UserDTO;
 import com.lth.bookingcare.entity.User;
 import com.lth.bookingcare.request.LoginRequest;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Map;
 
