@@ -15,7 +15,7 @@ import response.SuccessResponse;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private UserService userService;
