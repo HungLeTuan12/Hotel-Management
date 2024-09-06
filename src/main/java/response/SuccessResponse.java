@@ -5,6 +5,6 @@ public class SuccessResponse<T> extends BaseResponse<T> {
         super("failed", message, null);
     }
     public SuccessResponse(String message, T data) {
-        super("failed", message, data);
+        super("failed", "Success", data);
     }
 }
