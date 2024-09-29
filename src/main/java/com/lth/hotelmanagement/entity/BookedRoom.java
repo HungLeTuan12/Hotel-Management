@@ -16,13 +16,13 @@ public class BookedRoom {
     private int numOfAdults;
     private int numOfChildren;
     @Column(name = "total_guest")
-    private int totalNumOfGuest;
+    private int totalGuest;
     private String bookingConfirmCode;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
     private void calculateNumOfGuest() {
-        this.totalNumOfGuest = numOfAdults + numOfChildren;
+        this.totalGuest = this.numOfAdults + this.numOfChildren;
     }
     // Constructor
 
@@ -37,7 +37,7 @@ public class BookedRoom {
         this.guestEmail = guestEmail;
         this.numOfAdults = numOfAdults;
         this.numOfChildren = numOfChildren;
-        this.totalNumOfGuest = totalNumOfGuest;
+        this.totalGuest = numOfChildren + numOfAdults;
         this.bookingConfirmCode = bookingConfirmCode;
         this.room = room;
     }
@@ -99,11 +99,11 @@ public class BookedRoom {
     }
 
     public int getTotalNumOfGuest() {
-        return totalNumOfGuest;
+        return totalGuest;
     }
 
     public void setTotalNumOfGuest(int totalNumOfGuest) {
-        this.totalNumOfGuest = totalNumOfGuest;
+        this.totalGuest = totalNumOfGuest;
     }
 
     public String getBookingConfirmCode() {

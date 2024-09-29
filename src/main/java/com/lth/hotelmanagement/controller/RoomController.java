@@ -10,6 +10,7 @@ import com.lth.hotelmanagement.service.impl.BookingService;
 import com.lth.hotelmanagement.service.impl.RoomService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -123,5 +125,31 @@ public class RoomController {
             RoomResponse roomResponse = getRoomResponse(room);
             return ResponseEntity.ok(Optional.of(roomResponse));
         }).orElseThrow(() -> new ResourceNotFoundException("Room not found !"));
+     }
+     @GetMapping("/available-rooms")
+     public ResponseEntity<List<RoomResponse>> getAvailableRooms(
+             @RequestParam("checkInDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
+             @RequestParam("checkOutDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate,
+                                                                 @RequestParam("roomType")String roomType) throws SQLException {
+         System.out.println("checkIndATE" + checkInDate);
+         System.out.println("checkIndATE" + checkOutDate);
+
+        List<Room> availableRooms = roomService.getAvailableRooms(checkInDate, checkOutDate, roomType);
+        List<RoomResponse> roomResponses = new ArrayList<>();
+        for(Room room : availableRooms) {
+            byte[] photoBytes = roomService.getRoomPhotoByRoomId(room.getId());
+            if(photoBytes != null && photoBytes.length > 0) {
+                String photoBase64 = Base64.encodeBase64String(photoBytes);
+                RoomResponse roomResponse = getRoomResponse(room);
+                roomResponse.setPhoto(photoBase64);
+                roomResponses.add(roomResponse);
+            }
+        }
+        if(roomResponses.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.ok(roomResponses);
+        }
      }
 }
