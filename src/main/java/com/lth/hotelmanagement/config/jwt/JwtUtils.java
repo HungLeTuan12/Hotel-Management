@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Base64;
@@ -19,9 +20,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-
+@Component
 public class JwtUtils {
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(JwtUtils.class);
     @Value("${security.jwt.secret}")
     private String jwtSecret;
     @Value("${security.jwt.expiration}")

@@ -25,14 +25,23 @@ public class UserService implements IUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
     public User registerUser(User user) throws UserAlreadyExistsException {
         if(userRepository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExistsException(user.getEmail() + " already exist !!");
         }
+        System.out.println("password" + user.getEmail());
+        System.out.println("password" + user.getLastName());
+
+        System.out.println("password" + user.getPassword());
         user.setPassword((passwordEncoder.encode(user.getPassword())));
-        Role userRole = roleRepository.findByName("ROLE_USER").get();
+        Role userRole = roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("Role USER not found in the database"));
+
+        System.out.println("role: " + userRole);
         user.setRoles(Collections.singleton(userRole));
+
         return userRepository.save(user);
     }
 

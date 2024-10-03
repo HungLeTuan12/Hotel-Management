@@ -30,6 +30,9 @@ public class HotelUserDetails implements UserDetails {
     public String getPassword() {
         return password;
     }
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public String getUsername() {
@@ -53,7 +56,7 @@ public class HotelUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return true ;
     }
 
     public HotelUserDetails() {
