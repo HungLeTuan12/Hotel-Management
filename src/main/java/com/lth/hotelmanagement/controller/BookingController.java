@@ -42,7 +42,7 @@ public class BookingController {
         return ResponseEntity.ok(bookingResponses);
     }
 
-    private BookingResponse getBookingResponse(BookedRoom booking) {
+    public BookingResponse getBookingResponse(BookedRoom booking) {
         Room theRoom = roomRepository.findById(booking.getRoom().getId()).get();
         RoomResponse roomResponse = new RoomResponse(theRoom.getId(),
                 theRoom.getRoomType(),
@@ -65,11 +65,12 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-    @PostMapping("/room/{roomId}/booking")
+    @PostMapping("/room/{roomId}/booking/{userId}")
     public ResponseEntity<?> saveBooking(@PathVariable Long roomId,
+                                         @PathVariable Long userId,
                                          @RequestBody BookedRoom bookingRequest) {
         try {
-            String confirmationCode = bookingService.saveBooking(roomId, bookingRequest);
+            String confirmationCode = bookingService.saveBooking(roomId, userId, bookingRequest);
             return ResponseEntity.ok(
                     "Room booked successfully ! Your booking confirmation code is: " + confirmationCode);
         }

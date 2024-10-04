@@ -2,8 +2,10 @@ package com.lth.hotelmanagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 @Entity
 public class User {
@@ -14,6 +16,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<BookedRoom> bookings = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER,
     cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH
@@ -28,15 +32,18 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, Collection<Role> roles) {
+
+
+    public User(Long id, String firstName, String lastName, String email, String password, List<BookedRoom> bookings, Collection<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.bookings = bookings;
         this.roles = roles;
     }
-    // Getter and setter
+// Getter and setter
 
     public Long getId() {
         return id;
@@ -78,11 +85,25 @@ public class User {
         this.password = password;
     }
 
+    public Collection<BookedRoom> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Collection<BookedRoom> bookings) {
+        this.bookings = bookings;
+    }
+
     public Collection<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+
+
+    public void setBookings(List<BookedRoom> bookings) {
+        this.bookings = bookings;
     }
 }

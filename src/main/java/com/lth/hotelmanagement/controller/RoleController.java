@@ -40,10 +40,10 @@ public class RoleController {
     }
     @PostMapping("/remove-user")
     public User removeUserFromRole(
-            @RequestParam("email") String email,
+            @RequestParam("userId") Long userId,
             @RequestParam("roleId") Long roleId
     ) {
-        return roleService.removeUserFromRole(email, roleId);
+        return roleService.removeUserFromRole(userId, roleId);
     }
     @PostMapping("/assign-user")
     public User assignUserToRole(@RequestParam("userId") Long userId,

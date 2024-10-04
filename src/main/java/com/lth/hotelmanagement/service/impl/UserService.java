@@ -1,8 +1,10 @@
 package com.lth.hotelmanagement.service.impl;
 
+import com.lth.hotelmanagement.entity.BookedRoom;
 import com.lth.hotelmanagement.entity.Role;
 import com.lth.hotelmanagement.entity.User;
 import com.lth.hotelmanagement.exception.UserAlreadyExistsException;
+import com.lth.hotelmanagement.repository.BookedRoomRepository;
 import com.lth.hotelmanagement.repository.RoleRepository;
 import com.lth.hotelmanagement.repository.UserRepository;
 import com.lth.hotelmanagement.service.IUserService;
@@ -22,6 +24,8 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private BookedRoomRepository bookedRoomRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -56,7 +60,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUser(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found !!!"));
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found !!!"));
+    }
+
+    @Override
+    public List<BookedRoom> getBookingHistory(Long userId) {
+        return bookedRoomRepository.findByUserId(userId);
     }
 }

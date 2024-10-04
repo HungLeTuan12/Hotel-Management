@@ -20,6 +20,7 @@ public class BookingResponse {
     private String bookingConfirmCode;
     private RoomResponse room;
     Long roomId;
+    Long userId;
 
     // Constructor
 
@@ -29,11 +30,10 @@ public class BookingResponse {
         this.checkOutDate = checkOutDate;
         this.bookingConfirmCode = bookingConfirmCode;
     }
-
     public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate,
                            String guestFullName, String guestEmail, int numOfAdults,
                            int numOfChildren, int totalNumOfGuest, String bookingConfirmCode,
-    RoomResponse roomResponse) {
+                           RoomResponse roomResponse) {
         this.id = id;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -44,6 +44,22 @@ public class BookingResponse {
         this.totalGuest = totalNumOfGuest;
         this.bookingConfirmCode = bookingConfirmCode;
         this.room = roomResponse;
+    }
+    public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate,
+                           String guestFullName, String guestEmail, int numOfAdults,
+                           int numOfChildren, int totalNumOfGuest, String bookingConfirmCode,
+    RoomResponse roomResponse, Long userId) {
+        this.id = id;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.guestFullName = guestFullName;
+        this.guestEmail = guestEmail;
+        this.numOfAdults = numOfAdults;
+        this.numOfChildren = numOfChildren;
+        this.totalGuest = totalNumOfGuest;
+        this.bookingConfirmCode = bookingConfirmCode;
+        this.room = roomResponse;
+        this.userId = userId;
     }
     // getter and setter
 
@@ -133,5 +149,13 @@ public class BookingResponse {
 
     public void setRoomId(Long roomId) {
         this.roomId = roomId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

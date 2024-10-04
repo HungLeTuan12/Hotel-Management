@@ -21,12 +21,29 @@ public class BookedRoom {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
     private void calculateNumOfGuest() {
         this.totalGuest = this.numOfAdults + this.numOfChildren;
     }
     // Constructor
 
     public BookedRoom() {
+    }
+
+    public BookedRoom(Long id, LocalDate checkInDate, LocalDate checkOutDate, String guestFullName, String guestEmail, int numOfAdults, int numOfChildren, int totalGuest, String bookingConfirmCode, Room room, User user) {
+        this.id = id;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.guestFullName = guestFullName;
+        this.guestEmail = guestEmail;
+        this.numOfAdults = numOfAdults;
+        this.numOfChildren = numOfChildren;
+        this.totalGuest = totalGuest;
+        this.bookingConfirmCode = bookingConfirmCode;
+        this.room = room;
+        this.user = user;
     }
 
     public BookedRoom(Long id, LocalDate checkInDate, LocalDate checkOutDate, String guestFullName, String guestEmail, int numOfAdults, int numOfChildren, int totalNumOfGuest, String bookingConfirmCode, Room room) {
@@ -120,5 +137,21 @@ public class BookedRoom {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getTotalGuest() {
+        return totalGuest;
+    }
+
+    public void setTotalGuest(int totalGuest) {
+        this.totalGuest = totalGuest;
     }
 }

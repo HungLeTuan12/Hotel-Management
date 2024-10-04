@@ -2,6 +2,7 @@ package com.lth.hotelmanagement.service.impl;
 
 import com.lth.hotelmanagement.entity.BookedRoom;
 import com.lth.hotelmanagement.entity.Room;
+import com.lth.hotelmanagement.entity.User;
 import com.lth.hotelmanagement.exception.InvalidBookingRequestException;
 import com.lth.hotelmanagement.repository.BookedRoomRepository;
 import com.lth.hotelmanagement.service.IBookingService;
@@ -13,6 +14,8 @@ import java.util.List;
 public class BookingService implements IBookingService {
     @Autowired
     private RoomService roomService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private BookedRoomRepository bookedRoomRepository;
     @Override
@@ -31,16 +34,19 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public String saveBooking(Long roomId, BookedRoom bookingRequest) {
+    public String saveBooking(Long roomId, Long userId, BookedRoom bookingRequest) {
         if(bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())) {
             throw new InvalidBookingRequestException("Check in date must come before check-out date !");
         }
         Room room = roomService.getRoomById(roomId).get();
+        User user = userService.getUser(userId);
         List<BookedRoom> existingBookings = room.getBookings();
         boolean roomIsAvailable = roomIsAvailable(bookingRequest, existingBookings);
 
         if(roomIsAvailable) {
             bookingRequest.setTotalNumOfGuest(bookingRequest.getNumOfAdults()  +bookingRequest.getNumOfChildren());
+
+            bookingRequest.setUser(user);
             room.addBooking(bookingRequest);
             bookedRoomRepository.save(bookingRequest);
         }

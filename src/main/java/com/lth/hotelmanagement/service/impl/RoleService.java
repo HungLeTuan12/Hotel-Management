@@ -50,8 +50,8 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public User removeUserFromRole(String email, Long roleId) {
-        User user = userService.getUser(email);
+    public User removeUserFromRole(Long userId, Long roleId) {
+        User user = userService.getUser(userId);
         Optional<Role> role = roleRepository.findById(roleId);
         if(role.isPresent() && role.get().getUsers().contains(user)) {
             role.get().removeUserFromRole(user);

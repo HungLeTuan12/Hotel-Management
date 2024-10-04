@@ -11,7 +11,7 @@ public interface IRoleService {
     Role createRole(Role theRole);
     void deleteRole(Long id);
     Role findByName(String name);
-    User removeUserFromRole(String email, Long roleId);
+    User removeUserFromRole(Long userId, Long roleId);
     User assignRoleToUser(Long userId, Long roleId) throws UserAlreadyExistsException;
     Role removeAllUsersFromRole(Long roleId);
 }
